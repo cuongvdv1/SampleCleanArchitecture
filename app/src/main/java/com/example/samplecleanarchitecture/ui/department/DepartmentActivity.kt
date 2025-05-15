@@ -1,17 +1,36 @@
 package com.example.samplecleanarchitecture.ui.department
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.example.samplecleanarchitecture.databinding.ActivityMainBinding
+import com.example.samplecleanarchitecture.base.BaseActivity
+import com.example.samplecleanarchitecture.databinding.ActivityListDataBinding
+import com.example.samplecleanarchitecture.ui.department.adapter.DepartmentAdapter
+import com.example.samplecleanarchitecture.ui.department.viewModel.DepartmentViewModel
+import com.example.samplecleanarchitecture.ui.employee.EmployeeActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DepartmentActivity : AppCompatActivity() {
+class DepartmentActivity : BaseActivity<ActivityListDataBinding>(ActivityListDataBinding::inflate) {
 
-    private val binding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
+    private val adapter by lazy { DepartmentAdapter() }
+    private val viewModel by viewModel<DepartmentViewModel>()
+
+    override fun initView() {
+        viewBinding.rvData.adapter = adapter
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+    override fun bindView() {
+        adapter.setOnItemClickListener {
+            startActivity(EmployeeActivity.getIntent(this, it.code))
+        }
+    }
+
+    override fun bindViewModel() {
+        viewModel.department.observe(this) {
+            adapter.submitList(it)
+        }
+
+        viewModel.isLoading.observe(this) {
+            if (it) showDialog() else hideDialog()
+        }
+
+        viewModel.getListDepartment()
     }
 }

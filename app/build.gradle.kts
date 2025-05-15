@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(project(":app-domain"))
     implementation(project(":app-data"))
+    implementation(libs.glide)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

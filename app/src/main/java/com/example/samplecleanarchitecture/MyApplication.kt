@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.data.di.networkModule
 import com.example.data.di.repositoryModule
 import com.example.samplecleanarchitecture.di.useCaseModule
+import com.example.samplecleanarchitecture.di.viewModelModule
 import org.koin.core.context.startKoin
 
 class MyApplication: Application() {
@@ -13,7 +14,8 @@ class MyApplication: Application() {
         val modules = listOf(
             networkModule,
             repositoryModule,
-            useCaseModule
+            useCaseModule,
+            viewModelModule
         )
         startKoin {
             modules(modules)

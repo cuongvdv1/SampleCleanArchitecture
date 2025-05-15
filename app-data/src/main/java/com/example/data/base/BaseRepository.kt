@@ -13,7 +13,9 @@ abstract class BaseRepository {
         context: CoroutineContext = Dispatchers.IO,
         request: suspend CoroutineScope.() -> R
     ): ApiResult<R> = withContext(context) {
-        return@withContext try {
+
+        return@withContext ApiResult.Success(request())
+        try {
             ApiResult.Success(request())
         } catch (e: HttpException) {
             ApiResult.Error(e.code(), e.message(), e.response()?.errorBody()?.string())
