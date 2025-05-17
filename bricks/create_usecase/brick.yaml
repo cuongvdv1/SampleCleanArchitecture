@@ -1,0 +1,17 @@
+name: create_usecase
+description: create usecase
+version: 1.0.0
+vars:
+  entity_name:
+    type: string
+  repository_name:
+    type: string
+  usecase_name:
+    type: string
+  package_name_domain:
+    type: string
+    default: com.example.domain
+  package_name_data:
+    type: string
+    default: com.example.data
+  
