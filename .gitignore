@@ -77,3 +77,5 @@ app/develop/
 app/product/
 *.dm
 output-metadata.json
+.mason/
+mason-lock.json
